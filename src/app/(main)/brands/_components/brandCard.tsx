@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import { IBrands } from "@/types/Brands.type"
 import Link from "next/link";

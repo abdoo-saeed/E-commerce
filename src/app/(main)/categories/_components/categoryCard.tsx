@@ -1,3 +1,5 @@
+"use client"
+
 import { ICategories } from "@/types/Categories.type"
 import Image from "next/image";
 import Link from "next/link";

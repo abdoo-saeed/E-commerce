@@ -1,3 +1,5 @@
+"use client"
+
 import { Trash } from "iconsax-react";
 import { useCart } from "@/context/cartContext";
 import { ICart } from "@/types/Cart.type";

@@ -1,3 +1,4 @@
+"use client"
 import { getAllProducts } from "@/lib/services/products";
 import ProductCard from "./productCard";
 import { Iproduct } from "@/types/products.type";
