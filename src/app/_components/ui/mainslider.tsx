@@ -1,0 +1,59 @@
+"use client"
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Image from "next/image";
+
+export default function MainSlider() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+
+        //  autoplaySpeed:1000,
+        // autoplay: true,
+   
+  };
+  return (  
+    <Slider {...settings}>
+      <div className="w-full">
+  <Image
+    src="/assets/original-4e0e24e5a6295c4376c8b7a921bfdad6.webp"
+    alt="Slider Image 1"
+    width={0}
+    height={0}
+    sizes="100vw"
+    className="w-full h-[400px] object-center "
+  />
+</div>
+     
+      
+     
+     
+        <div className="w-full">
+  <Image
+    src="/assets/original-22acd46c58d4fc105ca2154ede02c323.webp"
+    alt="Slider Image 1"
+    width={0}
+    height={0}
+    sizes="100vw"
+    className="w-full h-[400px] object-center "
+  />
+</div>
+        <div className="w-full">
+  <Image
+    src="/assets/original-aec79b0d01e953da51578ca653859002.webp"
+    alt="Slider Image 1"
+    width={0}
+    height={0}
+    sizes="100vw"
+    className="w-full h-[400px] object-center "
+  />
+</div>
+     
+    </Slider>
+  );
+}
