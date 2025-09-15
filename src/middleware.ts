@@ -13,9 +13,9 @@ export async function middleware(request: NextRequest) {
   }
 
   
-  if (!token && pathname.startsWith("/cart")) {
-    return NextResponse.redirect(new URL("/Auth/login", request.url))
-  }
+  // if (!token && pathname.startsWith("/cart")) {
+  //   return NextResponse.redirect(new URL("/Auth/login", request.url))
+  // }
 
   return NextResponse.next()
 }
