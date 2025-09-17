@@ -9,6 +9,8 @@ export default function MainSlider() {
   const settings = {
     dots: true,
     infinite: true,
+    // nextArrow:true ,
+    // prevArrow: true,
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -18,7 +20,7 @@ export default function MainSlider() {
    
   };
   return (  
-    <Slider {...settings}>
+    <Slider className="p-6 rounded-3xl" {...settings}>
       <div className="w-full">
   <Image
     src="/assets/original-4e0e24e5a6295c4376c8b7a921bfdad6.webp"

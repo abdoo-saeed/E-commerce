@@ -31,7 +31,7 @@ function ProductDetails({product}:{product:Iproduct}) {
     slidesToScroll: 1
   };
   return (
-    <div className="mt-10 mb-10 max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="mt-10 mb-10 max-w-4xl mx-auto lg:w-4xl bg-white rounded-2xl shadow-lg p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Left: Image Slider */}
       <div className="slider-container pb-4">
       <Slider {...settings} >
