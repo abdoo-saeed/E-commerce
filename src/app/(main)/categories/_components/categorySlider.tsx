@@ -14,10 +14,10 @@ interface Props {
 
 const CategoriesSlider = ({ categories }: Props) => {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 5, // how many cards per view
+    slidesToShow: 2, // how many cards per view
     slidesToScroll: 1,
     responsive: [
       {
