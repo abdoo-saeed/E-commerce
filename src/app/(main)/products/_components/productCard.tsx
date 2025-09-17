@@ -41,14 +41,22 @@ if(status === "authenticated"){
   }
 
 
-  const handleAddToWish = async ()=>{
+   const handleAddToWish =async ()=>{
+  
+if(status === "authenticated"){
     await toast.promise(addWishItem(product?._id),{
-      loading:"adding product to wishList..",
-      success:"product added to wishList",
+      loading:"adding product to wishlist..",
+      success:"product added to wishlist",
       error:"can not be added"
     })
-
+    // console.log(data);
+    getCartData()
+  }else {
+    toast.error("you must login first")
+    router.replace("/Auth/login")
   }
+  }
+
 
   const handleRemoveWish =()=>{
     
