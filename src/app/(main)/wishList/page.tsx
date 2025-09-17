@@ -20,7 +20,7 @@ export default async function Page() {
     
     if (products?.length) {
         return (
-          <div className="products mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="products mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-4 gap-4">
             {products.map((p: IWish) => (
               <WishItemCard product={p} key={p._id} />
             ))}
