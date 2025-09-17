@@ -17,6 +17,9 @@ import { checkoutCOD, checkoutCredit } from "@/lib/services/cart"
 import { CheckoutFormData } from "@/types/Checkout.type"
 import { useRouter } from "next/navigation"
 
+
+
+
 // schema
 const formSchema = z.object({
   details: z.string().min(5),
@@ -44,6 +47,7 @@ export default function OrderSummary() {
   })
 
   const router = useRouter()
+   const { getCartData } = useCart();
 
   // handle checkout submit
   const handleCheckOut = (data: orderData) => {
@@ -59,7 +63,7 @@ export default function OrderSummary() {
     if (data.payment_method === "cod") {
       console.log("cod")
       checkoutCOD(cart?.cartId, formData)
-      router.refresh()
+      getCartData()
 
     } else {
       console.log("credit")
