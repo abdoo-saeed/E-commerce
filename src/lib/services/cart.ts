@@ -138,14 +138,14 @@ export async function checkoutCredit(cartId:string, formData:CheckoutFormData) {
 //=====================================================================================
 
 // update cart count
-export async function updateCartCount(id?:string) {
+export async function updateCartCount(id?:string , count?:number) {
   const token = await getUserToken();
 
   //fetch the data
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/cart/${id}`, {
     method:"PUT",
     body:JSON.stringify({
-      count : "1"
+      count
     }),
     headers: {
       token,

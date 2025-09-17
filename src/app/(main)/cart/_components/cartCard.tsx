@@ -17,14 +17,14 @@ export default function CartItemCard({ item }: { item: ICart }) {
 
   const handleMinus = async () => {
     if (count > 1) {
-      const data = await updateCartCount(item?.product?._id,);
+      const data = await updateCartCount(item?.product?._id , count - 1);
       setCount(data?.data?.count ?? count - 1);
       getCartData();
     }
   };
 
   const handlePlus = async () => {
-    const data = await updateCartCount(item?.product?._id);
+    const data = await updateCartCount(item?.product?._id , count + 1);
     setCount(data?.data?.count ?? count + 1);
     getCartData();
   };
