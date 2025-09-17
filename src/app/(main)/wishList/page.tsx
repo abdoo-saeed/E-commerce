@@ -30,13 +30,22 @@ export default async function Page() {
         return (
           <div className="emptyMsg text-center w-full">
             <p className="text-4xl my-4 font-bold">No elements in the wish list</p>
-            <p className="text-sm mb-10">See another one</p>
+            <p className="text-4xl my-4 font-bold">make sure you are logged in first</p>
+            
+            <Link
+              href="/Auth/login"
+              className="w-40 bg-black text-white p-4 rounded-2xl mb-10 inline-block me-2"
+              
+            >
+              LOGIN
+              
+            </Link>
             <Link
               href="/"
               className="w-40 bg-black text-white p-4 rounded-2xl mb-10 inline-block"
             >
               Go to Home
-              <ShoppingCart className="inline-block mx-3" />
+              
             </Link>
           </div>
         );
