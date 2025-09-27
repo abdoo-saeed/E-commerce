@@ -16,27 +16,30 @@ import { useCart } from "@/context/cartContext"
 import { checkoutCOD, checkoutCredit } from "@/lib/services/cart"
 import { CheckoutFormData } from "@/types/Checkout.type"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { toast } from "sonner"
+import { removeCartItem } from "@/lib/services/cart"
+
+
 
 // schema
 const formSchema = z.object({
-  details: z.string().min(5, "Details must be at least 5 characters"),
+  details: z.string().min(5),
   phone: z.string().min(11).max(11),
-  city: z.string().min(2, "City is required"),
-  payment_method: z.enum(["cod", "credit"]),
+  city: z.string(),
+  payment_method: z.enum(["cod", "credit"]), //restrict to only "cod" | "credit"
 })
 
 // type from schema
 type orderData = z.infer<typeof formSchema>
 
 export default function OrderSummary() {
-  const { cart, getCartData } = useCart()
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  const { cart } = useCart()
 
+ 
   const form = useForm<orderData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      // default values to solve undefined error
       details: "",
       phone: "",
       city: "",
@@ -44,10 +47,12 @@ export default function OrderSummary() {
     },
   })
 
+  const router = useRouter()
+   const { getCartData } = useCart();
+
   // handle checkout submit
-  const handleCheckOut = async (data: orderData) => {
-    setLoading(true)
-    const formData: CheckoutFormData = {
+  const handleCheckOut = async(data: orderData) => {
+    const formData:CheckoutFormData = {
       shippingAddress: {
         details: data.details,
         phone: data.phone,
@@ -55,18 +60,28 @@ export default function OrderSummary() {
       },
     }
 
-    try {
-      if (data.payment_method === "cod") {
-        await checkoutCOD(cart?.cartId, formData)
-        getCartData()
-      } else {
-        await checkoutCredit(cart?.cartId, formData)
-      }
-      router.push("/thank-you") // redirect after checkout
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoading(false)
+
+    if (data.payment_method === "cod") {
+   
+      
+       await toast.promise(checkoutCOD(cart?.cartId, formData),{
+         loading: "checking details...",
+        success: "checkout done",
+        error: "Failed to checkout",
+       })
+      
+       router.replace("/")
+       removeCartItem()
+       getCartData()
+       
+     
+      
+      
+
+
+    } else {
+      
+      checkoutCredit(cart?.cartId, formData)
     }
   }
 
@@ -95,31 +110,28 @@ export default function OrderSummary() {
             </p>
           </div>
 
-          {/* details Field ===========================*/}
+          {/* details Field ======================================================== */}
           <FormField
             control={form.control}
             name="details"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Order details</FormLabel>
+                <FormLabel>order details</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Street address, building number..."
-                    {...field}
-                  />
+                  <Input placeholder="" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          {/* phone Field================================ */}
+          {/* phone Field ======================================================== */}
           <FormField
             control={form.control}
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel>your phone</FormLabel>
                 <FormControl>
                   <Input placeholder="01*********" {...field} />
                 </FormControl>
@@ -128,52 +140,67 @@ export default function OrderSummary() {
             )}
           />
 
-          {/* city Field==================================== */}
+          {/* city Field ======================================================== */}
           <FormField
             control={form.control}
             name="city"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>City</FormLabel>
+                <FormLabel>your city</FormLabel>
                 <FormControl>
-                  <Input placeholder="Giza" {...field} />
+                  <Input placeholder="giza" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          {/* payment method buttons========================================= */}
-          <div className="flex gap-4">
-            {["cod", "credit"].map((method) => (
-              <FormField
-                key={method}
-                control={form.control}
-                name="payment_method"
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormControl>
-                      <Button
-                        type="button"
-                        variant={field.value === method ? "default" : "outline"}
-                        className="w-full"
-                        onClick={() => field.onChange(method)}
-                      >
-                        {method === "cod" ? "Cash on Delivery" : "Credit Card"}
-                      </Button>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-            ))}
+          {/* payment_method Field radio button (COD)======================================================== */}
+          <div className="flex justify-around gap-4">
+            <FormField
+              control={form.control}
+              name="payment_method"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>COD</FormLabel>
+                  <FormControl>
+                    <input
+                      type="radio"
+                      value="cod"
+                      checked={field.value === "cod"} 
+                      onChange={field.onChange}
+                      className="size-5"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* payment_method Field radio button (CREDIT)======================================================== */}
+            <FormField
+              control={form.control}
+              name="payment_method"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>CREDIT</FormLabel>
+                  <FormControl>
+                    <input
+                      type="radio"
+                      value="credit"
+                      checked={field.value === "credit"} 
+                      onChange={field.onChange}
+                      className="size-5"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
 
-          <Button
-            className="w-full bg-green-600 hover:bg-green-700"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? "Processing..." : "Go To Checkout"}
+          <Button className="cursor-pointer" type="submit">
+            Go To Checkout
           </Button>
         </form>
       </Form>
