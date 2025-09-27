@@ -48,7 +48,7 @@ export default function MainSlider() {
   const images = [
     "/assets/original-4e0e24e5a6295c4376c8b7a921bfdad6.webp",
     "/assets/original-22acd46c58d4fc105ca2154ede02c323.webp",
-    "/assets/original-aec79b0d01e953da51578ca653859002.webp",
+    
   ]
 
   return (
