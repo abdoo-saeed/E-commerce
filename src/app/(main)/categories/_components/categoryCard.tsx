@@ -10,18 +10,16 @@ function CategoryCard({product}:{product:ICategories}) {
         <Link href={`/categories/${product._id}`}>
       <div className="rounded-xl overflow-hidden shadow-md hover:shadow-green-500 transition-shadow duration-300 cursor-pointer bg-white">
       {/* Image */}
-      <div className="w-full h-56">
-        <Image
+      <div className="w-full h-full flex flex-col items-center justify-center p-2">
+        <img
           src={product.image}
           alt={product.name}
-          width={300}
-          height={224}
-          className="w-full h-full object-cover"
+          className="w-full h-40 sm:h-48 object-cover rounded-xl"
         />
       </div>
 
       {/* Category name */}
-      <div className="p-4 text-center font-semibold text-gray-800">
+      <div className="mt-2 text-center font-medium text-sm sm:text-base">
         {product.slug}
       </div>
     </div>

@@ -46,22 +46,27 @@ const CategoriesSlider = ({ categories }: Props) => {
     slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
+     arrows: true,
+      
     autoplaySpeed: 3000,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
-      { breakpoint: 1280, settings: { slidesToShow: 4 } },
-      { breakpoint: 1024, settings: { slidesToShow: 3 } },
-      { breakpoint: 768, settings: { slidesToShow: 2 } },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1, 
-          centerMode: false, 
-          arrows: false, 
-        },
-      },
-    ],
+  { breakpoint: 1280, settings: { slidesToShow: 4 } },
+  { breakpoint: 1024, settings: { slidesToShow: 3 } },
+  { breakpoint: 768, settings: { slidesToShow: 2 } },
+  {
+    breakpoint: 380,
+    settings: {
+      slidesToShow: 1,
+      centerMode: false,
+      arrows: true,
+      dots: false,
+      adaptiveHeight: true, 
+    },
+  },
+],
+
   }
 
   return (
