@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     .slice(0, 6)
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto ">
       {/* Main product details */}
       <ProductDetails product={product} />
 

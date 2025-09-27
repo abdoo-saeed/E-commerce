@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner"; // ✅ added toast
+import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react"; // 👁️ icons for toggle
 
 const formSchema = z
   .object({
@@ -23,7 +25,7 @@ const formSchema = z
       .max(20, { message: "Name must be at most 20 characters long" }),
     email: z
       .string()
-      .email({ message: "Invalid email format" }) //fixed schema: z.email() was invalid
+      .email({ message: "Invalid email format" })
       .min(3, { message: "Email must be at least 3 characters long" }),
     password: z
       .string()
@@ -40,13 +42,15 @@ const formSchema = z
   })
   .refine((data) => data.password === data.rePassword, {
     message: "Passwords do not match",
-    path: ["rePassword"], //show error under confirm password field
+    path: ["rePassword"],
   });
 
 type RegisterSchema = z.infer<typeof formSchema>;
 
 export default function Page() {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
 
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(formSchema),
@@ -77,7 +81,7 @@ export default function Page() {
         router.push("/Auth/login");
       } else {
         const errorData = await res.json();
-        toast.error(errorData.message || "Registration failed"); 
+        toast.error(errorData.message || "Registration failed");
       }
     } catch (error) {
       toast.error("There is an error, please try again later");
@@ -85,94 +89,140 @@ export default function Page() {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 max-w-96 mx-auto my-20 bg-white p-6 rounded-2xl"
-      >
-        <h3 className="text-center font-bold text-green-500 bg-gray-100 p-2 rounded-2xl">
-          Register
-        </h3>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6 w-full max-w-md bg-white p-8 rounded-2xl shadow-md border border-gray-200"
+        >
+          <h3 className="text-center text-2xl font-bold text-green-600">
+            Create an Account
+          </h3>
 
-        {/* Name ======================================================== */}
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="John Doe" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          {/* Name */}
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="John Doe"
+                    {...field}
+                    className="focus:ring-2 focus:ring-green-500"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        {/* Email ======================================================== */}
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="example@gmail.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          {/* Email */}
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="example@gmail.com"
+                    {...field}
+                    className="focus:ring-2 focus:ring-green-500"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        {/* Password ======================================================== */}
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="••••••" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          {/* Password */}
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <div className="relative">
+                  <FormControl>
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••"
+                      {...field}
+                      className="focus:ring-2 focus:ring-green-500 pr-10"
+                    />
+                  </FormControl>
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-2 flex items-center text-gray-500"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        {/* Confirm Password ======================================================== */}
-        <FormField
-          control={form.control}
-          name="rePassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="••••••" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          {/* Confirm Password */}
+          <FormField
+            control={form.control}
+            name="rePassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <div className="relative">
+                  <FormControl>
+                    <Input
+                      type={showRePassword ? "text" : "password"}
+                      placeholder="••••••"
+                      {...field}
+                      className="focus:ring-2 focus:ring-green-500 pr-10"
+                    />
+                  </FormControl>
+                  <button
+                    type="button"
+                    onClick={() => setShowRePassword(!showRePassword)}
+                    className="absolute inset-y-0 right-2 flex items-center text-gray-500"
+                  >
+                    {showRePassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        {/* Phone ======================================================== */}
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone</FormLabel>
-              <FormControl>
-                <Input type="tel" placeholder="01*******" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          {/* Phone */}
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone</FormLabel>
+                <FormControl>
+                  <Input
+                    type="tel"
+                    placeholder="01*******"
+                    {...field}
+                    className="focus:ring-2 focus:ring-green-500"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <Button className="cursor-pointer" type="submit">
-          Submit
-        </Button>
-      </form>
-    </Form>
+          <Button
+            className="w-full bg-green-600 hover:bg-green-700 transition-colors cursor-pointer"
+            type="submit"
+          >
+            Register
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 }

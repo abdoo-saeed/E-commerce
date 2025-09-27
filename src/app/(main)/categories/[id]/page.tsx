@@ -18,7 +18,7 @@ async function Page(props: Props) {
 
   if (data?.length) {
     return (
-      <div className="products mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6">
+      <div className="products mx-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 ">
         {data?.map((p: Iproduct) => (
           <ProductCard product={p} key={p.id} />
         ))}

@@ -17,7 +17,7 @@ const CategoriesSlider = ({ categories }: Props) => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 2, // how many cards per view
+    slidesToShow: 5, // how many cards per view
     slidesToScroll: 1,
     responsive: [
       {

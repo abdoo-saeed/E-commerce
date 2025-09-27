@@ -54,56 +54,70 @@ export default function Page() {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 max-w-96 mx-auto my-20 bg-white p-6 rounded-2xl"
-      >
-        <h3 className="text-center font-bold text-green-500 bg-gray-100 p-2 rounded-2xl">
-          login
-        </h3>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6 w-full max-w-md bg-white p-8 rounded-2xl shadow-md border border-gray-200"
+        >
+          <h3 className="text-center text-2xl font-bold text-green-600">
+            Login to Your Account
+          </h3>
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="example@gmail.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="example@gmail.com"
+                    {...field}
+                    className="focus:ring-2 focus:ring-green-500 focus:outline-none"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="••••••" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="••••••"
+                    {...field}
+                    className="focus:ring-2 focus:ring-green-500 focus:outline-none"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <div className="text-end">
-          <Link
-            className="underline text-blue-600 font-semibold"
-            href={"/Auth/register"}
+          <div className="text-end">
+            <Link
+              className="underline text-blue-600 font-medium text-sm hover:text-blue-800"
+              href={"/Auth/register"}
+            >
+              Don’t have an account?
+            </Link>
+          </div>
+
+          <Button
+            className="w-full bg-green-600 hover:bg-green-700 transition-colors cursor-pointer"
+            type="submit"
           >
-            did not have an account
-          </Link>
-        </div>
-
-        <Button className="cursor-pointer" type="submit">
-          Submit
-        </Button>
-      </form>
-    </Form>
+            Login
+          </Button>
+        </form>
+      </Form>
+    </div>
   )
 }
