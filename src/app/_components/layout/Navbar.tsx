@@ -68,7 +68,7 @@ export default function Navbar() {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link href={"/wishList"}>
-                  <NavigationMenuLink
+                <NavigationMenuLink
                     className={`hover:text-green-500 ${
                       pathname === "/wishList"
                         ? "text-green-600 font-semibold"
