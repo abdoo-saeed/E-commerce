@@ -13,7 +13,7 @@ interface Props {
   categories: ICategories[]
 }
 
-//  Custom Arrows
+// Custom Arrows
 const NextArrow = (props: any) => {
   const { onClick } = props
   return (
@@ -56,9 +56,9 @@ const CategoriesSlider = ({ categories }: Props) => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1.2, 
-          centerMode: true, 
-          centerPadding: "20px",
+          slidesToShow: 1, 
+          centerMode: false, 
+          arrows: false, 
         },
       },
     ],
@@ -74,8 +74,11 @@ const CategoriesSlider = ({ categories }: Props) => {
       {/* Slider */}
       <Slider {...settings}>
         {categories.map((category) => (
-          <div key={category._id} className="px-3">
-            <CategoryCard product={category} />
+          <div key={category._id} className="px-2">
+           
+            <div className="w-full">
+              <CategoryCard product={category} />
+            </div>
           </div>
         ))}
       </Slider>
