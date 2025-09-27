@@ -28,7 +28,7 @@ export default function WishItemCard({ product }: { product: IWish }) {
   };
 
   return (
-    <div className="group my-6 max-w-xs sm:max-w-sm bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 p-4 flex flex-col relative">
+    <div className="group my-6 max-w-xs sm:max-w-sm bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 p-4 pb-8 flex flex-col relative">
       {/* Product Image */}
       <div className="relative p-3">
         <img
@@ -40,7 +40,7 @@ export default function WishItemCard({ product }: { product: IWish }) {
         {/* Remove from Wishlist Button */}
         <button
           onClick={handleRemoveWish}
-          className="absolute top-3 right-3 bg-white/90 p-2 rounded-full shadow-md transform scale-0 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 hover:bg-red-100"
+          className="absolute top-3 right-3 bg-white/90 p-2 rounded-full shadow-md transform lg:scale-0 lg:opacity-0 transition-all duration-300 lg:group-hover:scale-100  lg:group-hover:opacity-100 hover:bg-red-100"
         >
           <MinusCirlce size="28" color="#e11d48" />
         </button>
@@ -79,7 +79,7 @@ export default function WishItemCard({ product }: { product: IWish }) {
       {/* Add to Cart Button */}
       <button
         onClick={handleAddToCart}
-        className="cursor-pointer mt-4 w-full bg-green-600 text-white py-2 px-4 rounded-xl hover:bg-green-700 opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
+        className="cursor-pointer  mt-4 w-full bg-green-600 text-white py-2 px-4 rounded-xl hover:bg-green-700 lg:opacity-0 translate-y-4 transition-all duration-300 lg:group-hover:opacity-100 lg:group-hover:translate-y-0"
       >
         Add to Cart
       </button>
