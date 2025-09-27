@@ -13,12 +13,12 @@ interface Props {
   categories: ICategories[]
 }
 
-// custom arrows
+//  Custom Arrows
 const NextArrow = (props: any) => {
   const { onClick } = props
   return (
     <button
-      className="absolute -right-6 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-green-500 hover:text-white transition"
+      className="hidden md:flex absolute -right-6 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-green-500 hover:text-white transition"
       onClick={onClick}
     >
       <ChevronRight size={22} />
@@ -30,7 +30,7 @@ const PrevArrow = (props: any) => {
   const { onClick } = props
   return (
     <button
-      className="absolute -left-6 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-green-500 hover:text-white transition"
+      className="hidden md:flex absolute -left-6 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-green-500 hover:text-white transition"
       onClick={onClick}
     >
       <ChevronLeft size={22} />
@@ -40,7 +40,7 @@ const PrevArrow = (props: any) => {
 
 const CategoriesSlider = ({ categories }: Props) => {
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     speed: 600,
     slidesToShow: 5,
@@ -53,7 +53,14 @@ const CategoriesSlider = ({ categories }: Props) => {
       { breakpoint: 1280, settings: { slidesToShow: 4 } },
       { breakpoint: 1024, settings: { slidesToShow: 3 } },
       { breakpoint: 768, settings: { slidesToShow: 2 } },
-      { breakpoint: 480, settings: { slidesToShow: 1 } },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1.2, 
+          centerMode: true, 
+          centerPadding: "20px",
+        },
+      },
     ],
   }
 
