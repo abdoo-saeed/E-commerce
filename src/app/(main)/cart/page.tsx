@@ -5,21 +5,36 @@ import CartItemCard from "./_components/cartCard"
 import { ICart } from "@/types/Cart.type"
 import { removeCartItem } from "@/lib/services/cart"
 import OrderSummary from "./_components/orderSummary"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const { cart, getCartData } = useCart()
   const products = cart?.data?.products ?? []
 
+  // redirect لو المستخدم مش عامل login
   useEffect(() => {
-    getCartData()
-  }, [])
+    if (status === "unauthenticated") {
+      router.push("/Auth/login")
+    }
+  }, [status, router])
+
+  // تحميل بيانات الكارت بعد التأكد إن المستخدم authenticated
+  useEffect(() => {
+    if (status === "authenticated") {
+      getCartData()
+    }
+  }, [status, getCartData])
 
   const handleRemoveCart = async () => {
     await removeCartItem()
     getCartData()
   }
 
-  if (!cart) {
+  // loading مؤقت لحد ما السيشن أو الكارت يجهز
+  if (status === "loading" || !cart) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-xl font-semibold">Loading cart...</p>
