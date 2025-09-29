@@ -26,12 +26,17 @@ export default async function Page() {
     
     
     if (products?.length) {
-        return (
+        return (<>
+          <div className="text-center font-bold text-4xl my-6 text-green-600">
+        Your Wishlist
+      </div>
+          
           <div className="products mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-5 ms-10 gap-4">
             {products.map((p: IWish) => (
               <WishItemCard product={p} key={p._id} />
             ))}
           </div>
+          </>
         );
       } else {
         return (
