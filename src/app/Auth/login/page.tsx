@@ -50,6 +50,7 @@ export default function Page() {
     } else {
       toast.success("Welcome back!") 
       router.push("/")
+      window.location.reload();
     }
   }
 
